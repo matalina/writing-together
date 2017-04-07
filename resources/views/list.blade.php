@@ -17,7 +17,8 @@
             </header>
             <div class="card-content">
                 <div class="content">
-                    {{ ($title->posts->last())->user->name }} posted last {{ $title->last_post->diffForHumans() }}
+                    {{ $title->posts->last() }} 
+			posted last {{ $title->last_post->diffForHumans() }}
                 </div>
             </div>
             <footer class="card-footer">
@@ -28,7 +29,7 @@
                 </p>
                 <p class="card-footer-item">
                   <span>
-                    Started on {{ $title->created_at->diffForHumans();
+                    Started on {{ $title->created_at->diffForHumans() }}
                   </span>
                 </p>
             </footer>

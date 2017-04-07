@@ -5,7 +5,7 @@
         <meta charset="UTF-8" />
         
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="https://cdnjs.com/libraries/bulma" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.0/css/bulma.css" />
         <style>
             
         </style>
@@ -88,7 +88,7 @@
                 <div class="container">
                     <div class="content has-text-centered">
                         Copyright &copy; 2017 
-                        @if(date('Y') != '2017)
+                        @if(date('Y') != '2017')
                             - {{ date('Y') }}
                         @endif
                          - All rights reserved by the original posters.  Do not reproduce others works without permission.
