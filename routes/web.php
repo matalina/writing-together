@@ -25,14 +25,14 @@ Route::get('logout', 'Auth\SocialiteController@logout')
 
 Route::group(['middleware' => 'auth'], function () 
 {
-    Route::get('/new', 'FictionController@create')
+    Route::get('new', 'FictionController@create')
         ->name('new');
-    Route::post('/new', 'FictionController@store')
+    Route::post('new', 'FictionController@store')
         ->name('doNew');
     
-    Route::get('/reply/{id}','FictionController@reply')
+    Route::get('reply/{id}','FictionController@reply')
         ->name('reply');
-    Route::post('/reply', 'FictionController@post')
+    Route::post('reply', 'FictionController@post')
         ->name('doReply');
         
     Route::get('delete/{id}/{type}', 'FictionController@delete')
