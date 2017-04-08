@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use League\CommonMark\CommonMarkConverter;
 
 class Post extends Model
 {
@@ -18,4 +19,9 @@ class Post extends Model
         return $this->belongsTo(Title::class);
     }
     
+    public function getBodyAttribute($value)
+    {
+        $converter = new CommonMarkConverter();
+        return $converter->convertToHtml($value);
+    }
 }

@@ -29,7 +29,14 @@ class User extends Authenticatable
     
     public function posts()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Post::class)
+            ->with('title');
     }
     
+    public function titlesUserIsIn()
+    {
+        $posts = $this->posts->unique('title_id');
+        
+        return $posts->all();   
+    }
 }

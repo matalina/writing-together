@@ -1,8 +1,10 @@
-<?php namespace App\Controllers\Auth;
+<?php namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use \Auth;
 use \Socialite;
 use \Session;
+use App\Models\User;
 
 class SocialiteController extends Controller
 {
@@ -19,7 +21,7 @@ class SocialiteController extends Controller
         Auth::login($authUser, true);
         
         Session::flash('succes','Successfully logged in');
-        return redirect()->back();
+        return redirect()->route('home');
     }
     
     public function findOrCreateUser($user, $provider)
@@ -43,6 +45,6 @@ class SocialiteController extends Controller
         Auth::logout();
         
         Session::flash('success','Sucesfully logged out!');
-        return redirect('/');
+        return redirect()->route('home');
     }
 }

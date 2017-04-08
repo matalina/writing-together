@@ -22,6 +22,14 @@ class Title extends Model
     
     public function tags()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'tags_titles');
+    }
+    
+    public function getLastPost()
+    {
+    
+        $post = $this->posts->sortByDesc('created_at')->first();
+        
+        return $post;
     }
 }

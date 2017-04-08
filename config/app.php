@@ -168,6 +168,7 @@ return [
          */
         Laravel\Tinker\TinkerServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -228,6 +229,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Form' => Collective\Html\FormFacade::class,
 
     ],
 

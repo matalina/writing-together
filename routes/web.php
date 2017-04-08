@@ -18,10 +18,9 @@ Route::get('view/{id}', 'FictionController@view')
 
 Route::get('login/{provider}', 'Auth\SocialiteController@redirectToProvider')
     ->name('login');
-Route::get('login/{provider}/callback', 'Auth\SocialliteController@handleProviderCallback')
+Route::get('login/{provider}/callback', 'Auth\SocialiteController@handleProviderCallback')
     ->name('login.callback');
-Route::get('logout', 'Auth\SocialiteController@logout')
-    ->name('logout');
+
 
 Route::group(['middleware' => 'auth'], function () 
 {
@@ -38,4 +37,18 @@ Route::group(['middleware' => 'auth'], function ()
     Route::get('delete/{id}/{type}', 'FictionController@delete')
         ->name('delete')
         ->middleware('can.moderate');
+    
+    Route::get('logout', 'Auth\SocialiteController@logout')
+        ->name('logout');    
+    
+    Route::get('users','ProfileController@index')
+        ->name('users');
+    
+    Route::get('profile/update', 'ProfileController@update')
+        ->name('profile.update');
+    Route::post('profile/update', 'ProfileController@save')
+        ->name('profile.doUpdate');
 });
+
+Route::get('profile/{id?}','ProfileController@view')
+    ->name('profile.view');

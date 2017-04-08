@@ -1,44 +1,67 @@
 @extends('master')
 
 @section('content')
-<div class="columns is-multiline is-mobile">
-@forelse($titles as $title)
-    <div class="column is-one-quarter">
-        <div class="card">
-            <header class="card-header">
-                <p class="card-header-title">
-                    {{ $title->title }}
-                </p>
-                @if(Auth::user()->can_moderate)
-                <a class="card-header-icon">
-                    <a class="delete"></a>
-                </a>
-                @endif
-            </header>
-            <div class="card-content">
-                <div class="content">
-                    {{ $title->posts->last() }} 
-			posted last {{ $title->last_post->diffForHumans() }}
-                </div>
-            </div>
-            <footer class="card-footer">
-                <p class="card-footer-item">
-                  <span>
-                    Started by {{ $title->user->name }}
-                  </span>
-                </p>
-                <p class="card-footer-item">
-                  <span>
-                    Started on {{ $title->created_at->diffForHumans() }}
-                  </span>
-                </p>
-            </footer>
-        </div>    
+<div class="columns">
+    <div class="column is-half is-offset-one-quarter">
+        {{ $titles->links() }}
     </div>
+</div>
+<table class="table is-striped">
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>Title</th>
+            <th>Created by</th>
+            <th>Created on</th>
+            <th>Last Post</th>
+            @if(Auth::check() && Auth::user()->can_moderate)
+            <th>&nbsp;</th>
+            @endif
+        </tr>
+    </thead>
+    <tbody>
+@forelse($titles as $title)
+    <tr>
+        <td>
+            
+        </td>
+        <td>
+            <a href="{{ route('view', ['id' => $title->id]) }}">{{ $title->title }}</a></td>
+        <td>
+            <a href="{{ route('profile.view', ['id' => $title->user_id]) }}">{{ $title->user->name }}</a>
+        </td>
+        <td>
+            {{ printDate($title->created_at) }}
+        </td>
+        <td>
+            by <a href="{{ route('profile.view', ['id' => $title->getLastPost()->user_id]) }}">
+                {{ $title->getLastPost()->user->name }} 
+            </a>
+            @if($title->getLastPost()->created_at->lt(Carbon\Carbon::now()->subDays(1))) 
+                on 
+            @endif 
+            {{ printDate($title->getLastPost()->created_at, true) }}
+        </td>
+        <td>
+            @if(Auth::check() && Auth::user()->can_moderate)
+                <a class="delete" href="{{ route('delete', ['id' => $title->id, 'type' => 'title']) }}"></a>
+            @endif
+        </td>
+    </tr>
 @empty
-<div class="notification">
-    There are no threads at this time.  Why don't you make the <a href="{{ route('new') }}">first one</a>.
-</div>  
+<div class="column">
+    <br/>
+    <div class="notification is-warning">
+        There are no threads at this time.  Why don't you make the <a href="{{ route('new') }}">first one</a>.
+    </div>  
+    <br/>
+</div>
 @endforelse
+</tbody>
+</table>
+<div class="columns">
+    <div class="column is-half is-offset-one-quarter">
+        {{ $titles->links() }}
+    </div>
 </div>
 @endsection

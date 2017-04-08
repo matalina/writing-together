@@ -17,15 +17,15 @@ use App\Models\Tag;
 class FictionController extends Controller
 {
     const PER_PAGE = 30;
+    
     /*
      * View all Titles
      */
     public function index()
     {
-        $titles = Title::all();
         
-        //$titles = Title::orderBy('last_post','desc')
-        //    ->paginate(self::PER_PAGE);
+        $titles = Title::orderBy('last_post','desc')
+            ->paginate(self::PER_PAGE);
             
         return view('list')->with('titles',$titles);    
     }
@@ -36,7 +36,7 @@ class FictionController extends Controller
     public function view($id)
     {
         $title = Title::where('id','=',(int) $id)
-            ->order_by('created_at','asc')
+            ->orderBy('created_at')
             ->with('user', 'posts', 'tags')
             ->first();
         
@@ -96,7 +96,10 @@ class FictionController extends Controller
         $title = Title::where('id','=',(int) $request->get('title_id'))
             ->first();
             
-        $this->createPost($title, $request);
+        $post = $this->createPost($title, $request);
+        
+        $title->last_post = $post->created_at;
+        $title->save();
         
         Session::flash('success','New reply created');
         return redirect('/view/'.$title->id);
@@ -161,7 +164,7 @@ class FictionController extends Controller
         $title->last_post = $post->created_at;
         $title->save();
         
-        return $title;
+        return $post;
 
     }
 }

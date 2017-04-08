@@ -14,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        require app_path('helpers.php');
         $this->bootWordpressSocialite();
     }
 
@@ -36,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
         $socialite->extend(
             'wordpress',
             function ($app) use ($socialite) {
-                $config = $app['config']['services.spotify'];
+                $config = $app['config']['services.wordpress'];
                 return $socialite->buildProvider(WordPressProvider::class, $config);
             }
         );

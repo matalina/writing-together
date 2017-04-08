@@ -10,6 +10,6 @@ class Tag extends Model
     
     public function titles() 
     {
-        return $this->hasMany(Title::class);
+        return $this->belongsToMany(Title::class,'tags_titles');
     }
 }
