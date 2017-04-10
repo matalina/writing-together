@@ -34,6 +34,11 @@ Route::group(['middleware' => 'auth'], function ()
     Route::post('reply', 'FictionController@post')
         ->name('doReply');
         
+    Route::get('edit/{id}','FictionController@edit')
+        ->name('edit');
+    Route::post('edit', 'FictionController@update')
+        ->name('doEdit');
+    
     Route::get('delete/{id}/{type}', 'FictionController@delete')
         ->name('delete')
         ->middleware('can.moderate');

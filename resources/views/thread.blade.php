@@ -16,23 +16,31 @@
         @endforeach
     </p>
     @endif
-
-    @foreach($title->posts as $post)
-    <article class="message">
-      <div class="message-header">
-        <p>
-            by {{ $post->user->name }} on {{ printDate($post->created_at) }}
-        </p>
-        @if(Auth::check() && Auth::user()->can_moderate)
-        <a class="delete" href="{{ route('delete', ['id' => $post->id, 'type' => 'post']) }}"></a>
-        @endif
-      </div>
-      <div class="message-body">
-        {!! $post->body !!}
-      </div>
-    </article>
-    @endforeach
 </div>
+@foreach($title->posts as $post)
+<article class="message">
+  <div class="message-header">
+    <p>
+        by {{ $post->user->name }} on {{ printDate($post->created_at) }}
+    </p>
+    @if(Auth::check() && Auth::user()->can_moderate)
+    <a class="delete" href="{{ route('delete', ['id' => $post->id, 'type' => 'post']) }}"></a>
+    @endif
+    @if(Auth::check() && Auth::user()->id == $post->user_id)
+
+    <a href="{{ route('edit', ['id' => $post->id]) }}" class="button is-primary">
+        <span class="icon">
+            <i class="fa fa-pencil"></i>
+        </span>
+    </a>
+
+    @endif
+  </div>
+  <div class="message-body content">
+    {!! $post->body !!}
+  </div>
+</article>
+@endforeach
 @if(Auth::check())
 <div class="columns">
     <div class="column is-half is-offset-one-quarter content">

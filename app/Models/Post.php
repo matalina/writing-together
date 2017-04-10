@@ -24,4 +24,9 @@ class Post extends Model
         $converter = new CommonMarkConverter();
         return $converter->convertToHtml($value);
     }
+    
+    public function getTextAttribute($value)
+    {
+        return $this->attributes['body'];
+    }
 }

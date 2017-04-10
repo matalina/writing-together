@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\NewReplyRequest;
 use App\Http\Requests\NewTitleRequest;
+use App\Http\Requests\EditPostRequest;
 
 use \Auth;
 use \Session;
@@ -124,6 +125,29 @@ class FictionController extends Controller
         
         return redirect('/');
     }
+    
+    /*
+     * Edit
+     */
+    public function edit($id)
+    {
+        $post = Post::find($id);
+        
+        return view('edit')
+            ->with('post',$post);
+    }
+    
+    public function update(EditPostRequest $request)
+    {
+        $post = Post::find((int) $request->get('id'));
+        
+        $post->body = $request->get('body');
+        $post->save();
+        
+        \Session::flash('succes','Post has been successfully edited.');
+        return redirect()->route('view',['id' => $post->title_id]);
+    }
+     
     
     /*
      * Create 
