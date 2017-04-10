@@ -28,7 +28,30 @@ class FictionController extends Controller
         $titles = Title::orderBy('last_post','desc')
             ->paginate(self::PER_PAGE);
             
-        return view('list')->with('titles',$titles);    
+        $tags = Tag::all();    
+            
+        return view('list')
+        ->with('titles',$titles)
+        ->with('tags',$tags);    
+    }
+    
+    /*
+     * View all titles by tag
+     */
+    public function tag($tag)
+    {
+        $tags = Tag::all();
+        
+        $sTag = str_replace('-',' ',$tag);
+        $titles = Title::orderBy('last_post','desc')
+            ->whereHas('tags', function($query) use($sTag) {
+                $query->where('tag','=',$sTag);
+            })
+            ->paginate(self::PER_PAGE);
+            
+        return view('list')
+        ->with('titles',$titles)
+        ->with('tags', $tags);    
     }
     
     /*

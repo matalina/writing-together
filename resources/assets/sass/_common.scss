@@ -16,3 +16,9 @@
         text-decoration: none;
     }
 }
+
+.nav-item {
+    a:link.profile, a:visited.profile {
+        color: $orange;
+    }
+}

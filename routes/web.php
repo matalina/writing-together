@@ -15,6 +15,9 @@ Route::get('/', 'FictionController@index')
     ->name('home');
 Route::get('view/{id}', 'FictionController@view')
     ->name('view');
+    
+Route::get('tag/{tag}', 'FictionController@tag')
+    ->name('tag');    
 
 Route::get('login/{provider}', 'Auth\SocialiteController@redirectToProvider')
     ->name('login');

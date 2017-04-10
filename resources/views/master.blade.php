@@ -24,8 +24,8 @@
                   <div class="nav-right">
                     @if(\Auth::check())
                         <span class="nav-item">
-                          Welcome back, 
-                          <a href="{{ route('profile.update') }}">{{ Auth::user()->name }}</a>
+                          Welcome back,
+                          &nbsp;<a class="profile" href="{{ route('profile.update') }}">{{ Auth::user()->name }}</a>
                         </span>
                         <span class="nav-item">
                           <a class="button" href="{{ route('logout') }}">
