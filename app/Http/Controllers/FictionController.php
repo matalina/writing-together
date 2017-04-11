@@ -14,6 +14,7 @@ use Carbon\Carbon;
 use App\Models\Title;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
 
 class FictionController extends Controller
 {
@@ -24,6 +25,9 @@ class FictionController extends Controller
      */
     public function index()
     {
+        $users = User::has('posts', '>', 0)
+            ->orderBy('name')
+            ->get();
         
         $titles = Title::orderBy('last_post','desc')
             ->paginate(self::PER_PAGE);
@@ -32,6 +36,7 @@ class FictionController extends Controller
             
         return view('list')
         ->with('titles',$titles)
+        ->with('users',$users)
         ->with('tags',$tags);    
     }
     
@@ -42,6 +47,11 @@ class FictionController extends Controller
     {
         $tags = Tag::all();
         
+        $users = User::where('id','=', \Auth::user()->id)
+            ->has('posts', '>', 0)
+            ->orderBy('name')
+            ->get();
+        
         $sTag = str_replace('-',' ',$tag);
         $titles = Title::orderBy('last_post','desc')
             ->whereHas('tags', function($query) use($sTag) {
@@ -51,6 +61,7 @@ class FictionController extends Controller
             
         return view('list')
         ->with('titles',$titles)
+        ->with('users',$users)
         ->with('tags', $tags);    
     }
     
@@ -135,7 +146,15 @@ class FictionController extends Controller
     public function delete($id, $type)
     {
         if($type === 'title') {
-            Title::destroy($id);
+            $title = Title::find((int) $id);
+            
+            $title->tags()->detach();
+            
+            foreach($title->posts as $post) {
+                $post->delete();
+            }
+            
+            $title->delete();
             Session::flash('success','Thread deleted successfully.');
         }
         else if($type === 'post') {

@@ -44,7 +44,13 @@
                     @else 
                         {{ printDate($title->getLastPost()->created_at, true) }}
                     @endif 
-                    
+                    <small>
+                        <a href="{{ route('view', ['id' => $title->id]) }}#post-{{ $title->getLastPost()->id }}">
+                            <span class="icon">
+                                <i class="fa fa-external-link" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                    </small>
                 </td>
                 <td>
                     @if(Auth::check() && Auth::user()->can_moderate)
@@ -85,6 +91,24 @@
                 </span>
             @endif    
         @endforeach
+        
+        @if(Auth::check())
+            <h3>
+                Active Members
+                <small>(<a href="{{ route('users') }}">all</a>)</small>
+            </h3>
+            @foreach($users as $user)
+                @if(!empty($user->name))
+                    <span class="tag is-white">
+                        <a href="{{ route('profile.view', ['id' => $user->id]) }}">
+                        <span class="icon">
+                            <i class="fa fa-user fa-fw" aria-hidden="true"></i> 
+                        </span>
+                        {{ $user->name }}</a>
+                    </span>
+                @endif    
+            @endforeach
+        @endif
     </div>
 </div>
 @endsection

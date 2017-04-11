@@ -3,12 +3,15 @@
 @section('content')
 <div class="content">
     <h1>{{ $user->name }}</h1>
-    
-    @if(Auth::check() && Auth::user()->id === $user->id)
     <div class="has-text-right">
-        <a href="{{ route('profile.update') }}" class="button is-primary">Edit Profile</a>
+        @if(Auth::check() && Auth::user()->id === $user->id)
+            <a href="{{ route('profile.update') }}" class="button is-primary">Edit Profile</a>
+        @endif
+        
+        @if(env('APP_ADMIN',false) || (Auth::check() && Auth::user()->can_moderate))
+            <a href="{{ route('profile.moderator',['id' => $user->id]) }}" class="button is-primary is-outlined">Make Moderator</a>
+        @endif
     </div>
-    @endif
     
     <div class="columns">
         <div class="column">

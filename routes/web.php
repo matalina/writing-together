@@ -56,6 +56,9 @@ Route::group(['middleware' => 'auth'], function ()
         ->name('profile.update');
     Route::post('profile/update', 'ProfileController@save')
         ->name('profile.doUpdate');
+        
+    Route::get('profile/moderator/{id}', 'ProfileController@setModerator')
+        ->name('profile.moderator');
 });
 
 Route::get('profile/{id?}','ProfileController@view')

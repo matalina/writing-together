@@ -13,9 +13,9 @@
 [X] Edit own posts
 [X] Tag Pages
 [X] Tag listings
-[ ] Create moderator option
-[ ] Moderators can edit all posts
-[ ] Members User list (members only)
+[X] Create moderator option
+[X] Moderators can edit all posts
+[X] Members User list (members only)
 [ ] Link to last post made
 
 # Features for later releases

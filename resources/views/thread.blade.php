@@ -18,23 +18,31 @@
     @endif
 </div>
 @foreach($title->posts as $post)
+<a name="post-{{ $post->id }}"></a>
 <article class="message">
   <div class="message-header">
     <p>
         by {{ $post->user->name }} on {{ printDate($post->created_at) }}
     </p>
-    @if(Auth::check() && Auth::user()->can_moderate)
-    <a class="delete" href="{{ route('delete', ['id' => $post->id, 'type' => 'post']) }}"></a>
-    @endif
-    @if(Auth::check() && Auth::user()->id == $post->user_id)
-
-    <a href="{{ route('edit', ['id' => $post->id]) }}" class="button is-primary">
-        <span class="icon">
-            <i class="fa fa-pencil"></i>
-        </span>
-    </a>
-
-    @endif
+    
+    <div>
+        @if((Auth::check() && Auth::user()->id == $post->user_id) || 
+            (Auth::check() && Auth::user()->can_moderate))
+            <a href="{{ route('edit', ['id' => $post->id]) }}" class="button is-primary">
+                <span class="icon">
+                    <i class="fa fa-pencil fa-fw"></i>
+                </span>
+            </a>
+        @endif
+        @if(Auth::check() && Auth::user()->can_moderate)
+            <a class="button is-danger" href="{{ route('delete', ['id' => $post->id, 'type' => 'post']) }}">
+                <span class="icon">
+                    <i class="fa fa-trash fa-fw"></i>
+                </span>
+            </a>
+        @endif
+    </div>    
+    
   </div>
   <div class="message-body content">
     {!! $post->body !!}

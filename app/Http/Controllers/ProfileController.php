@@ -57,4 +57,14 @@ class ProfileController extends Controller
         return redirect()->route('profile.view');
     }
     
+    public function setModerator($id)
+    {
+        $user = User::find((int) $id);
+        
+        $user->can_moderate = true;
+        $user->save();
+        
+        \Session::flash('success','Moderator sucessfully set.');
+        return redirect()->back();
+    }
 }
