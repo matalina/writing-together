@@ -19,10 +19,20 @@
 
 .nav-item {
     a:link.profile, a:visited.profile {
-        color: $orange;
+        color: $primary;
     }
 }
 
-small {
-    font-size: 80%;
+h3 {
+    small {
+        font-size: 50%;
+    }
+}
+
+.icon {
+    .fa {
+        &.is-small {
+            font-size: 80%;
+        }
+    }
 }

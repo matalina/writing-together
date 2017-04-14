@@ -29,7 +29,8 @@ class FictionController extends Controller
             ->orderBy('name')
             ->get();
         
-        $titles = Title::orderBy('last_post','desc')
+        $titles = Title::visible()
+            ->orderBy('last_post','desc')
             ->paginate(self::PER_PAGE);
             
         $tags = Tag::all();    
@@ -53,7 +54,8 @@ class FictionController extends Controller
             ->get();
         
         $sTag = str_replace('-',' ',$tag);
-        $titles = Title::orderBy('last_post','desc')
+        $titles = Title::visible()
+            ->orderBy('last_post','desc')
             ->whereHas('tags', function($query) use($sTag) {
                 $query->where('tag','=',$sTag);
             })
@@ -91,10 +93,20 @@ class FictionController extends Controller
      */
     public function store(NewTitleRequest $request)
     {
+        $rating = Rating::find($request->get('rating'));
+        $private = $rating->private;
+        
+        if($request->has('private')) {
+            $private = true;
+        }
+        
+        
         $data = [
             'title' => $request->get('title'),
             'user_id' => Auth::user()->id,
             'last_post' => Carbon::now(),
+            'rating' => $request->get('rating'),
+            'private' => $private,
         ];
         
         $title = Title::create($data);

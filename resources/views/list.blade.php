@@ -44,17 +44,19 @@
                     @else 
                         {{ printDate($title->getLastPost()->created_at, true) }}
                     @endif 
-                    <small>
-                        <a href="{{ route('view', ['id' => $title->id]) }}#post-{{ $title->getLastPost()->id }}">
-                            <span class="icon">
-                                <i class="fa fa-external-link" aria-hidden="true"></i>
-                            </span>
-                        </a>
-                    </small>
+                    <a href="{{ route('view', ['id' => $title->id]) }}#post-{{ $title->getLastPost()->id }}">
+                        <span class="icon">
+                            <i class="is-small fa fa-external-link" aria-hidden="true"></i>
+                        </span>
+                    </a>
                 </td>
                 <td>
                     @if(Auth::check() && Auth::user()->can_moderate)
-                        <a class="delete" href="{{ route('delete', ['id' => $title->id, 'type' => 'title']) }}"></a>
+                        <a class="button is-danger" href="{{ route('delete', ['id' => $title->id, 'type' => 'title']) }}">
+                            <span class="icon">
+                                <i class="fa fa-trash fa-fw"></i>
+                            </span>
+                        </a>
                     @endif
                 </td>
             </tr>
@@ -102,7 +104,7 @@
                     <span class="tag is-white">
                         <a href="{{ route('profile.view', ['id' => $user->id]) }}">
                         <span class="icon">
-                            <i class="fa fa-user fa-fw" aria-hidden="true"></i> 
+                            <img src="{{ $user->getAvatar(32) }}"/>
                         </span>
                         {{ $user->name }}</a>
                     </span>

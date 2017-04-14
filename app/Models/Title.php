@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Title extends Model
 {
@@ -25,11 +26,27 @@ class Title extends Model
         return $this->belongsToMany(Tag::class, 'tags_titles');
     }
     
+    public function rating()
+    {
+        return $this->belongsTo(Rating::class);
+    }
+    
     public function getLastPost()
     {
     
         $post = $this->posts->sortByDesc('created_at')->first();
         
         return $post;
+    }
+    
+    public function scopeVisible($query)
+    {
+        if(\Auth::guest()) {
+            // return only Everyone Rating & public threads
+            return $query->where('rating','=',1)
+                ->where('private','=',0);
+        }
+        
+        return $query;
     }
 }

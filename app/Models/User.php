@@ -33,6 +33,18 @@ class User extends Authenticatable
             ->with('title');
     }
     
+    public function getAvatar($size = 80)
+    {
+        $gravatar = new \thomaswelton\GravatarLib\Gravatar();
+    	// example: setting default image and maximum size
+    	$gravatar->setDefaultImage('monsterid')
+    		->setAvatarSize($size);
+    	// example: setting maximum allowed avatar rating
+    	$gravatar->setMaxRating('pg');
+    	
+    	return $gravatar->buildGravatarURL($this->email);
+    }
+    
     public function titlesUserIsIn()
     {
         $posts = $this->posts->unique('title_id');

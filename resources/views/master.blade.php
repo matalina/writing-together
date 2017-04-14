@@ -24,7 +24,7 @@
                   <div class="nav-right">
                     @if(\Auth::check())
                         <span class="nav-item">
-                          Welcome back,
+                          <img src="{{ Auth::user()->getAvatar() }}" />
                           &nbsp;<a class="profile" href="{{ route('profile.update') }}">{{ Auth::user()->name }}</a>
                         </span>
                         <span class="nav-item">
@@ -86,24 +86,21 @@
             
             <div class="container">
                 @if(\Session::has('success'))
-                <div class="notification is-success">
-                  <button class="delete"></button>
-                 {{ \Session::get('success') }}
-                </div>
+                <wt-notification class="is-success">
+                   {{ \Session::get('success') }}
+                 </wt-notification>
                 @endif
                 
                 @if(\Session::has('warning'))
-                <div class="notification is-success">
-                  <button class="delete"></button>
-                 {{ \Session::get('warning') }}
-                </div>
+                <wt-notification class="is-warning">
+                   {{ \Session::get('warning') }}
+                 </wt-notification>
                 @endif
                 
                 @if(\Session::has('error'))
-                <div class="notification is-success">
-                  <button class="delete"></button>
-                 {{ \Session::get('error') }}
-                </div>
+                <wt-notification class="is-danger">
+                   {{ \Session::get('error') }}
+                 </wt-notification>
                 @endif
               </div>
             
@@ -115,6 +112,7 @@
             </div>
             <footer class="footer">
                 <div class="container">
+                  <small>
                     <div class="content has-text-centered">
                         Copyright &copy; 2017 
                         @if(date('Y') != '2017')
@@ -122,8 +120,24 @@
                         @endif
                          - All rights reserved by the original posters.  Do not reproduce others works without permission.
                     </div>
+                  </small>
                 </div>
             </footer>
         </div>
+        
+        
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        
+          ga('create', '{{ env('GOOGLE_UA_ID') }}', 'auto');
+          ga('send', 'pageview');
+        
+        </script>
+        
+        <script src="https://unpkg.com/vue"></script>
+        <script src="{{ url('js/main.js') }}"></script>
     </body>
 </html>
