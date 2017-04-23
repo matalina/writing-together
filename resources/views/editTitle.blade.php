@@ -22,7 +22,14 @@
         <div class="field">
           <label class="label">Tags</label>
           <p class="control">
-            <input class="input" type="text" name="tags" placeholder="Tags are optional, separate with commas" value="{{ implode(',',($title->tags->pluck('tag'))->all()) }}">
+            <?php
+              $tags = $title->tags->pluck('tag');
+              if($tags != null)
+                $tags = implode(',', $tags->all());
+              else 
+                $tags = '';
+            ?>  
+            <input class="input" type="text" name="tags" placeholder="Tags are optional, separate with commas" value="{{ $tags }}">
             @if($errors->has('tags'))
                 {!! $errors->first('tags', '<p class="help is-danger">:message</p>') !!}
             @endif
