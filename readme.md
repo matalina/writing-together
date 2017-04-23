@@ -56,6 +56,8 @@ Software used:
 [X] Removed empty tags
 [X] Tags linked to tag post listing page
 [ ] Local storage of unposted posts in the new and reply boxes!!
+[ ] Edit Title with multiple words only has one word in text box
+[ ] Fix the null birthday issue
 
 #### New Features
 
@@ -64,8 +66,8 @@ Software used:
 [X] Ratings (E, T, M) - can only view age appropriate threads (by age)
 [X] Private by login
 [ ] Private Messages
-[ ] Edit Titles 
-[ ] Edit Tags
+[X] Edit Titles 
+[X] Edit Tags
 
 #### Notes
 

@@ -33,8 +33,14 @@ class IsOldEnough
         $rating = Rating::find($title->rating);
         
         $min_rating_age = Carbon::now()->subYears($rating->older_than);
-        
-        if($user->birth_date->lte($min_rating_age)) {
+        if($user->birth_date == null) {
+            if($title->private) {
+                \Session::flash('warning','You can\'t view that page.');
+                return redirect('/');
+            }
+            return $next($request);
+        }
+        else if($user->birth_date->lte($min_rating_age)) {
             return $next($request);
         }
         else {
