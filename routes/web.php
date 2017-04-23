@@ -14,7 +14,8 @@
 Route::get('/', 'FictionController@index')
     ->name('home');
 Route::get('view/{id}', 'FictionController@view')
-    ->name('view');
+    ->name('view')
+    ->middleware('can.view');
     
 Route::get('tag/{tag}', 'FictionController@tag')
     ->name('tag');    
@@ -37,10 +38,12 @@ Route::group(['middleware' => 'auth'], function ()
     Route::post('reply', 'FictionController@post')
         ->name('doReply');
         
-    Route::get('edit/{id}','FictionController@edit')
+    Route::get('edit/{id}/{type?}','FictionController@edit')
         ->name('edit');
-    Route::post('edit', 'FictionController@update')
-        ->name('doEdit');
+    Route::post('edit/post', 'FictionController@updatePost')
+        ->name('doEditPost');
+        Route::post('edit/post', 'FictionController@updateTitle')
+        ->name('doEditTitle');
     
     Route::get('delete/{id}/{type}', 'FictionController@delete')
         ->name('delete')

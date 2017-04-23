@@ -26,9 +26,9 @@ class Title extends Model
         return $this->belongsToMany(Tag::class, 'tags_titles');
     }
     
-    public function rating()
+    public function ratings()
     {
-        return $this->belongsTo(Rating::class);
+        return $this->belongsTo(Rating::class,'rating');
     }
     
     public function getLastPost()

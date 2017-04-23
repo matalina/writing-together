@@ -25,7 +25,9 @@
         @forelse($titles as $title)
             <tr>
                 <td>
-                    
+                    <figure class="image is-32x32">
+                      <img src="{{ url('images/'.$title->ratings->rating.'.jpg') }}">
+                    </figure>
                 </td>
                 <td>
                     <a href="{{ route('view', ['id' => $title->id]) }}">{{ $title->title }}</a></td>
@@ -55,6 +57,11 @@
                         <a class="button is-danger" href="{{ route('delete', ['id' => $title->id, 'type' => 'title']) }}">
                             <span class="icon">
                                 <i class="fa fa-trash fa-fw"></i>
+                            </span>
+                        </a>
+                        <a class="button is-warning" href="{{ route('edit', ['id' => $title->id, 'type' => 'title']) }}">
+                            <span class="icon">
+                                <i class="fa fa-pencil fa-fw"></i>
                             </span>
                         </a>
                     @endif

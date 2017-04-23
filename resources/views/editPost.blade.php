@@ -5,7 +5,7 @@
 <div class="columns">
     <div class="column is-half is-offset-one-quarter content">
         <h2>Reply</h2>
-        {!! Form::open(['route' => 'doEdit']) !!}
+        {!! Form::open(['route' => 'doEditPost']) !!}
         
         {!! Form::hidden('id', $post->id) !!}
         

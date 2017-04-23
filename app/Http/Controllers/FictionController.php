@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\NewReplyRequest;
 use App\Http\Requests\NewTitleRequest;
 use App\Http\Requests\EditPostRequest;
+use App\Http\Requests\EditTitleRequest;
 
 use \Auth;
 use \Session;
@@ -15,6 +16,7 @@ use App\Models\Title;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\User;
+use App\Models\Rating;
 
 class FictionController extends Controller
 {
@@ -48,11 +50,10 @@ class FictionController extends Controller
     {
         $tags = Tag::all();
         
-        $users = User::where('id','=', \Auth::user()->id)
-            ->has('posts', '>', 0)
+        $users = User::has('posts', '>', 0)
             ->orderBy('name')
             ->get();
-        
+            
         $sTag = str_replace('-',' ',$tag);
         $titles = Title::visible()
             ->orderBy('last_post','desc')
@@ -85,7 +86,9 @@ class FictionController extends Controller
      */
     public function create()
     {
-        return view('new');
+        $ratings = Rating::all();
+        return view('new')
+            ->with('ratings',$ratings);
     }
     
     /*
@@ -183,15 +186,26 @@ class FictionController extends Controller
     /*
      * Edit
      */
-    public function edit($id)
+    public function edit($id, $type = 'post')
     {
-        $post = Post::find($id);
+        if($type === 'post') {
+            $post = Post::find($id);
         
-        return view('edit')
-            ->with('post',$post);
+            return view('editPost')
+                ->with('post',$post);
+        }
+        else if($type === 'title') {
+            $title = Title::find($id);
+            
+            $ratings = Rating::all();
+            
+            return view('editTitle')
+                ->with('title',$title)
+                ->with('ratings',$ratings);
+        }
     }
     
-    public function update(EditPostRequest $request)
+    public function updatePost(EditPostRequest $request)
     {
         $post = Post::find((int) $request->get('id'));
         
@@ -200,6 +214,31 @@ class FictionController extends Controller
         
         \Session::flash('succes','Post has been successfully edited.');
         return redirect()->route('view',['id' => $post->title_id]);
+    }
+    
+    public function updateTitle(EditTitleRequest $request)
+    {
+        $title = Title::find((int) $request->get('id'));
+        
+        $rating = Rating::find($request->get('rating'));
+        $private = $rating->private;
+        
+        if($request->has('private')) {
+            $private = true;
+        }
+        
+        $title->title = $request->get('title');
+        $title->rating = $request->get('rating');
+        $title->private = $private;
+        $title->save();
+        
+        $tags = collect($this->createOrFetchTags($request->get('tags')));
+        $tags = $tags->pluck('id');
+        
+        $title->tags()->sync($tags->all());
+        
+        \Session::flash('succes','Title has been successfully edited.');
+        return redirect()->route('view',['id' => $title->id]);
     }
      
     

@@ -13,7 +13,7 @@
             @if(!empty($tag->tag))
                 <a class="tag is-dark" href="{{ route('tag',['tag' => str_slug($tag->tag)]) }}">
                     {{ $tag->tag }}
-                <a/>
+                <a/>&nbsp;
             @else
                 <small>No Tags</small>
             @endif

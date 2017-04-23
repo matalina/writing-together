@@ -55,14 +55,17 @@ Software used:
 [X] Color changes & minor cosmetic updates
 [X] Removed empty tags
 [X] Tags linked to tag post listing page
+[ ] Local storage of unposted posts in the new and reply boxes!!
 
 #### New Features
 
 [X] Added google analytics
 [X] Gravatar's enabled
-[ ] Ratings (E, T, M) - can only view age appropriate threads (by age)
-[ ] Private by login
+[X] Ratings (E, T, M) - can only view age appropriate threads (by age)
+[X] Private by login
 [ ] Private Messages
+[ ] Edit Titles 
+[ ] Edit Tags
 
 #### Notes
 

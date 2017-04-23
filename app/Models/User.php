@@ -17,10 +17,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
+     
     protected $casts = [
         'can_moderate' => 'boolean',
     ];
+    
+    protected $dates = ['created_at','updated_at','birth_date'];
     
     public function titles()
     {
