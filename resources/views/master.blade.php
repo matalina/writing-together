@@ -28,7 +28,7 @@
                           &nbsp;<a class="profile" href="{{ route('profile.update') }}">{{ Auth::user()->name }}</a>
                         </span>
                         <span class="nav-item">
-                          <a class="button" href="{{ route('logout') }}">
+                          <a class="button" href="{{ route('logout') }}" @click="setClear">
                             <span class="icon">
                               <i class="fa fa-sign-out"></i>
                             </span>
@@ -36,7 +36,7 @@
                           </a>
                         </span>
                         <span class="nav-item">
-                          <a class="button is-primary" href="{{ route('new') }}">
+                          <a class="button is-primary" href="{{ route('new') }}" @click="setClear">
                             <span class="icon">
                               <i class="fa fa-plus-square-o"></i>
                             </span>
@@ -137,7 +137,6 @@
         
         </script>
         
-        <script src="https://unpkg.com/vue"></script>
-        <script src="{{ url('js/main.js') }}"></script>
+        <script src="{{ url('js/app.js') }}"></script>
     </body>
 </html>

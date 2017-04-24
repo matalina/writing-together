@@ -55,9 +55,11 @@ Software used:
 [X] Color changes & minor cosmetic updates
 [X] Removed empty tags
 [X] Tags linked to tag post listing page
-[ ] Local storage of unposted posts in the new and reply boxes!!
-[ ] Edit Title with multiple words only has one word in text box
-[ ] Fix the null birthday issue
+[X] Local storage of unposted posts in the new and reply boxes!!
+[X] Edit Title with multiple words only has one word in text box
+[X] Fix the null birthday issue
+[X] Birthdates not showing up in profile box.
+[X] Delete confirmation 
 
 #### New Features
 
@@ -65,7 +67,6 @@ Software used:
 [X] Gravatar's enabled
 [X] Ratings (E, T, M) - can only view age appropriate threads (by age)
 [X] Private by login
-[ ] Private Messages
 [X] Edit Titles 
 [X] Edit Tags
 
@@ -74,6 +75,9 @@ Software used:
 * Using Vue for some interactions, no compiling at this point
 
 ## Future
+
+[ ] Private Messages/Threads
+[ ] Local Storage of edit threads
 
 ### Research Required
 

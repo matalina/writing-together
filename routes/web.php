@@ -42,7 +42,7 @@ Route::group(['middleware' => 'auth'], function ()
         ->name('edit');
     Route::post('edit/post', 'FictionController@updatePost')
         ->name('doEditPost');
-        Route::post('edit/post', 'FictionController@updateTitle')
+        Route::post('edit/title', 'FictionController@updateTitle')
         ->name('doEditTitle');
     
     Route::get('delete/{id}/{type}', 'FictionController@delete')

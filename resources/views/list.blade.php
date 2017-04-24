@@ -30,7 +30,7 @@
                     </figure>
                 </td>
                 <td>
-                    <a href="{{ route('view', ['id' => $title->id]) }}">{{ $title->title }}</a></td>
+                    <a href="{{ route('view', ['id' => $title->id]) }}" @click="setClear">{{ $title->title }}</a></td>
                 <td>
                     <a href="{{ route('profile.view', ['id' => $title->user_id]) }}">{{ $title->user->name }}</a>
                 </td>
@@ -46,7 +46,7 @@
                     @else 
                         {{ printDate($title->getLastPost()->created_at, true) }}
                     @endif 
-                    <a href="{{ route('view', ['id' => $title->id]) }}#post-{{ $title->getLastPost()->id }}">
+                    <a href="{{ route('view', ['id' => $title->id]) }}#post-{{ $title->getLastPost()->id }}" @click="setClear">
                         <span class="icon">
                             <i class="is-small fa fa-external-link" aria-hidden="true"></i>
                         </span>
@@ -54,12 +54,12 @@
                 </td>
                 <td>
                     @if(Auth::check() && Auth::user()->can_moderate)
-                        <a class="button is-danger" href="{{ route('delete', ['id' => $title->id, 'type' => 'title']) }}">
+                        <a class="button is-danger" href="{{ route('delete', ['id' => $title->id, 'type' => 'title']) }}" @click="confirmDelete">
                             <span class="icon">
                                 <i class="fa fa-trash fa-fw"></i>
                             </span>
                         </a>
-                        <a class="button is-warning" href="{{ route('edit', ['id' => $title->id, 'type' => 'title']) }}">
+                        <a class="button is-warning" href="{{ route('edit', ['id' => $title->id, 'type' => 'title']) }}" @click="setClear">
                             <span class="icon">
                                 <i class="fa fa-pencil fa-fw"></i>
                             </span>

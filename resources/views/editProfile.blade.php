@@ -19,7 +19,7 @@
         <div class="field">
             <label class="label">Birth Date</label>
             <p class="control">
-                <input class="input" type="date" name="birthdate" value="{{ Request::old('birthdate', $user->birth_date) }}">
+                <input class="input" type="date" name="birthdate" value="{{ Request::old('birthdate', $user->birth_date->toDateString()) }}">
             </p>
             @if($errors->has('name'))
                 {!! $errors->first('name', '<p class="help is-danger">:message</p>') !!}

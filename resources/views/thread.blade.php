@@ -53,7 +53,7 @@
             </a>
         @endif
         @if(Auth::check() && Auth::user()->can_moderate)
-            <a class="button is-danger is-outlined" href="{{ route('delete', ['id' => $post->id, 'type' => 'post']) }}">
+            <a class="button is-danger is-outlined" href="{{ route('delete', ['id' => $post->id, 'type' => 'post']) }}" @click="confirmDelete">
                 <span class="icon">
                     <i class="fa fa-trash fa-fw"></i>
                 </span>
@@ -78,7 +78,7 @@
         <div class="field">
             <p class="help"><a href="http://commonmark.org/help/" target="_blank">Text formating help</a></p>
             <p class="control">
-                <textarea class="textarea" name="body" placeholder="Enter the body of your text"></textarea>
+                <textarea class="textarea" name="body" placeholder="Enter the body of your text" :value="message" @keyup="saveText"></textarea>
                 @if($errors->has('body'))
                     {!! $errors->first('body', '<p class="help is-danger">:message</p>') !!}
                 @endif
@@ -87,10 +87,10 @@
         
         <div class="field is-grouped">
           <p class="control">
-            <button type="submit" class="button is-primary">Submit</button>
+            <button type="submit" class="button is-primary" @click="setClear">Submit</button>
           </p>
           <p class="control">
-            <button type="reset" class="button is-link">Cancel</button>
+            <button type="reset" class="button is-link" @click="setClear">Cancel</button>
           </p>
         </div>
         

@@ -12,7 +12,7 @@
         <div class="field">
             <label class="label">Title</label>
             <p class="control">
-                <input class="input" type="text" name="title" placeholder="Enter a Title for your Work" value={{ $title->title }} />
+                <input class="input" type="text" name="title" placeholder="Enter a Title for your Work" value="{{ $title->title }}" />
             </p>
             @if($errors->has('title'))
                 {!! $errors->first('title', '<p class="help is-danger">:message</p>') !!}
