@@ -74,16 +74,37 @@ Software used:
 
 * Using Vue for some interaction, webpack up and working correctly
 
-## Future
+### 1.1.1 - <not released yet>
 
+#### Bug Fixes
+- [ ] Birthday on profile on new account causing issues
+
+#### New Features
+- [ ] Moderator assign different user to a post
+- [ ] Moderator merge threads
+
+### 1.2.0 - <not released yet>
+
+#### Bugs Fixes
+
+#### Features
 - [ ] Private Messages/Threads
 - [ ] Local Storage of edit threads
+- [ ] Users online
+- [ ] New Posts on thread
+- [ ] New Posts notifications (email, notifications-mobile,web,push?)
+
+#### Notes
+
+* ??
+
+## Future
+
+- ??
 
 ### Research Required
 
 - [ ] Askimet spam protection
-- [ ] New Posts on thread
-- [ ] New Posts notifications (email, notifications-mobile,web,push?)
-- [ ] Users online
+- [ ] Slack chat invitations
 
 
